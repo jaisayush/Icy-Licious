@@ -1,1 +1,18 @@
-<p>view-product works!</p>
+<!-- <p>view-product works!</p> -->
+<ul>
+  <li *ngFor="let product of products">
+    {{ product.productId }}
+    {{ product.productName }}
+    {{ product.productType }}
+    {{ product.productPrice }}
+    {{ product.productDescription }}
+    {{ product.productStartDate }}
+    {{ product.productEndDate }}
+    <img
+      src="{{ product.productImage }}"
+      alt="{{ product.productName }}"
+      width="50"
+      height="50"
+    />
+  </li>
+</ul>
