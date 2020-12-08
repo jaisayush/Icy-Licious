@@ -1,0 +1,10 @@
+.example-card {
+    max-width: 400px;
+  }
+
+  ul{
+      display: flex;
+      justify-content: space-around;
+      max-width: 100%;
+      overflow: auto;
+  }
