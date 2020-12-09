@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import {FormBuilder,Validators} from '@angular/forms';
+import {FormBuilder,Validators,FormGroup} from '@angular/forms';
 import { AddProductService } from '../add-product.service';
-
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-add-product',
@@ -50,14 +50,29 @@ export class AddProductComponent implements OnInit {
     description : ['',[Validators.required,Validators.minLength(10),Validators.maxLength(100)]],
     startDate : ['',[Validators.required]],
     endDate : ['',[Validators.required]],
-    fileSource: ['', Validators.required],
+    fileSource: ['', Validators.required,RxwebValidators.extension({extensions:["jpeg","png","jpg"]})],
     fileName: '',
+  },{
+    validator:this.dateLessThan('startDate','endDate')
   })
 
 
 
   ngOnInit(): void {
   }
+
+  dateLessThan(from: string, to: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      let f = group.controls[from];
+      let t = group.controls[to];
+      if (f.value > t.value) {
+        return {
+          dates: "Date from should be less than Date to"
+        };
+      }
+      return {};
+    }
+}
 
   public selectedfile =null;
   
