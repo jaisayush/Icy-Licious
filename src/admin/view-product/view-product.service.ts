@@ -10,4 +10,7 @@ export class ViewProductService {
   getProducts() {
     return this.HttpClient.get(this.url);
   }
+  updateProducts(data){
+    return this.HttpClient.put('http://localhost:3000/product',data)
+  }
 }
