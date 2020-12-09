@@ -9,9 +9,10 @@
       </mat-card-header>
       <img
         mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        
+        src={{product.productImage}}
         alt="{{ product.productName }}"
-        style="width: 300px; height: 300px0; margin-left: auto; margin-right: auto; display: block;"
+        style="width: 150px; height: 100px0; margin-left: auto; margin-right: auto; display: block;"
       />
       <mat-card-content>
         <div>
@@ -155,7 +156,7 @@
                           </div>
                           
                           <div class="field is-grouped">
-                              <button [disabled]="!updateForm.valid" type="submit" class="btn btn-lg btn-success is-link" (click)="update()">Update</button>
+                              <button [disabled]="!updateForm.valid" type="submit" class="btn btn-lg btn-success is-link" (dbclick)="update()">Update</button>
                               <button type="button" style="margin-left: 4%;" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Delete</button>
                         </div>
                         

@@ -11,6 +11,6 @@ export class ViewProductService {
     return this.HttpClient.get(this.url);
   }
   updateProducts(data){
-    return this.HttpClient.put('http://localhost:3000/product',data)
+    return this.HttpClient.patch('http://localhost:3000/product',data)
   }
 }
