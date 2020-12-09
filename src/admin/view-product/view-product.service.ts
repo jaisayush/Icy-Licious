@@ -13,4 +13,10 @@ export class ViewProductService {
   updateProducts(data){
     return this.HttpClient.patch('http://localhost:3000/product',data)
   }
+
+  deleteProduct(id){
+    return this.HttpClient.delete('http://localhost:3000/product',id)
+  }
+
+
 }

@@ -156,8 +156,8 @@
                           </div>
                           
                           <div class="field is-grouped">
-                              <button [disabled]="!updateForm.valid" type="submit" class="btn btn-lg btn-success is-link" (dbclick)="update()">Update</button>
-                              <button type="button" style="margin-left: 4%;" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Delete</button>
+                              <button [disabled]="!updateForm.valid" type="submit" (dbclick)="update()" class="btn btn-lg btn-success is-link" >Update</button>
+                              <button type="button" style="margin-left: 4%;" class="btn btn-danger" data-dismiss="modal" (click)="showDelete()">Delete</button>
                         </div>
                         
                           </form>
@@ -168,3 +168,20 @@
         </div>
     </div>
    
+
+    <div [style.display]="showDeleteModal ? 'block' : 'none'" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Delete</p>
+          <button class="delete" (click)="closeModal()" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <h1>Are you sure want to delete?</h1>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-danger" (click)="delete()">Confirm</button>
+          <button class="button" (click)="closeModal()">Cancel</button>
+        </footer>
+      </div>
+    </div>

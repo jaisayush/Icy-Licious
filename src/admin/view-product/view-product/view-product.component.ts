@@ -94,6 +94,8 @@ export class ViewProductComponent implements OnInit {
       endDate:this.setDate(product.productEndDate),
 
     });
+
+    localStorage.setItem('productId',product.productId)
   }
 
   update(){
@@ -111,12 +113,34 @@ export class ViewProductComponent implements OnInit {
       formData.append('image',this.selectedfile,this.selectedfile.name);
     }
     console.log(formData)
-    this.service.updateProducts(formData).subscribe((response) => {
-       this.products = response;
+    this.service.updateProducts(formData)
+    .subscribe((res) => {
+       console.log(res)
      });   
   }
   hide(){
     this.showModal = false;
+    localStorage.removeItem('productId')
   }
 
+  showDeleteModal:boolean
+
+  showDelete(){
+    this.showDeleteModal = true;
+  }
+
+  closeModal(){
+    this.showDeleteModal = false;
+  }
+
+
+  delete(){
+    this.service.deleteProduct(localStorage.getItem('productId'))
+    .subscribe((res) => {
+       console.log(res)
+     });  
+     localStorage.removeItem('productId')
+     this.closeModal();
+     this.hide();
+  }
 }
