@@ -9,9 +9,10 @@
       </mat-card-header>
       <img
         mat-card-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        
+        src={{product.productImage}}
         alt="{{ product.productName }}"
-        style="width: 300px; height: 300px0; margin-left: auto; margin-right: auto; display: block;"
+        style="width: 150px; height: 100px0; margin-left: auto; margin-right: auto; display: block;"
       />
       <mat-card-content>
         <div>
@@ -137,7 +138,7 @@
                             <label class="label">Product Image</label>
                             <div class="file is-info has-name is-small">
                               <label class="file-label">
-                                <input  class="file-input form-control" accept="image/*" (change)="onFileSelected($event)" formControlName="fileSource"  type="file" name="image">
+                                <input  class="file-input form-control" accept=".png, .jpg, .jpeg" (change)="onFileSelected($event)" formControlName="fileSource"  type="file" name="image">
                                 <span class="file-cta">
                                   <span class="file-icon">
                                     <i class="fas fa-upload"></i>
@@ -155,8 +156,8 @@
                           </div>
                           
                           <div class="field is-grouped">
-                              <button [disabled]="!updateForm.valid" type="submit" class="btn btn-lg btn-success is-link" (click)="update()">Update</button>
-                              <button type="button" style="margin-left: 4%;" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Delete</button>
+                              <button [disabled]="!updateForm.valid" type="submit" (dbclick)="update()" class="btn btn-lg btn-success is-link" >Update</button>
+                              <button type="button" style="margin-left: 4%;" class="btn btn-danger" data-dismiss="modal" (click)="showDelete()">Delete</button>
                         </div>
                         
                           </form>
@@ -167,3 +168,20 @@
         </div>
     </div>
    
+
+    <div [style.display]="showDeleteModal ? 'block' : 'none'" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Delete</p>
+          <button class="delete" (click)="closeModal()" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <h1>Are you sure want to delete?</h1>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-danger" (click)="delete()">Confirm</button>
+          <button class="button" (click)="closeModal()">Cancel</button>
+        </footer>
+      </div>
+    </div>

@@ -59,12 +59,12 @@ export class ViewProductComponent implements OnInit {
   public selectedfile =null;
   onFileSelected(event){
     
-    // if(event.target.files.length > 0) 
-    //  {
-    //    this.createForm.patchValue({
-    //       fileName: event.target.files[0].name,
-    //    })
-    //  }
+    if(event.target.files.length > 0) 
+     {
+       this.updateForm.patchValue({
+          fileName: event.target.files[0].name,
+       })
+     }
     
     console.log(event);
     this.selectedfile=event.target.files[0];
@@ -81,10 +81,6 @@ export class ViewProductComponent implements OnInit {
   }
 
   show(product){
-
-  
-
-
     console.log(product)
     this.showModal = true;
     console.log(product.productId)
@@ -98,11 +94,14 @@ export class ViewProductComponent implements OnInit {
       endDate:this.setDate(product.productEndDate),
 
     });
+
+    localStorage.setItem('productId',product.productId)
   }
 
   update(){
 
     const formData = new FormData();
+    console.log(this.updateForm)
     formData.append('productId',this.updateForm.get('productId').value);
     formData.append('productName',this.updateForm.get('productName').value)
     formData.append('type',this.updateForm.get('type').value);
@@ -110,15 +109,38 @@ export class ViewProductComponent implements OnInit {
     formData.append('description',this.updateForm.get('description').value);
     formData.append('startDate',this.updateForm.get('startDate').value);
     formData.append('endDate',this.updateForm.get('endDate').value);
-    
-
+    if(this.selectedfile!=null){
+      formData.append('image',this.selectedfile,this.selectedfile.name);
+    }
     console.log(formData)
-    // this.service.updateProducts(formData).subscribe((response) => {
-    //   this.products = response;
-    // });   
+    this.service.updateProducts(formData)
+    .subscribe((res) => {
+       console.log(res)
+     });   
   }
   hide(){
     this.showModal = false;
+    localStorage.removeItem('productId')
   }
 
+  showDeleteModal:boolean
+
+  showDelete(){
+    this.showDeleteModal = true;
+  }
+
+  closeModal(){
+    this.showDeleteModal = false;
+  }
+
+
+  delete(){
+    this.service.deleteProduct(localStorage.getItem('productId'))
+    .subscribe((res) => {
+       console.log(res)
+     });  
+     localStorage.removeItem('productId')
+     this.closeModal();
+     this.hide();
+  }
 }
