@@ -14,8 +14,10 @@ li {
   flex-direction: column;
 }
 
-button{
+mat-card-actions{
+  button{
     position: absolute;
     bottom: 2%;
     right: 30%;
+  }
 }

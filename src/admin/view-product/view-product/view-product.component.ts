@@ -1,5 +1,6 @@
 import { ViewProductService } from './../view-product.service';
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder,Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-view-product',
@@ -8,11 +9,116 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProductComponent implements OnInit {
   public products;
-  constructor(private service: ViewProductService) {
+
+  get productId(){
+    return this.updateForm.get('productId');
+  }
+  get productName(){
+    return this.updateForm.get('productName');
+  }
+  get type(){
+    return this.updateForm.get('type');
+  }
+
+  get price(){
+    return this.updateForm.get('price');
+  }
+
+  get description(){
+    return this.updateForm.get('description')
+  }
+
+  get startDate(){
+    return this.updateForm.get('startDate')
+  }
+
+  get endDate(){
+    return this.updateForm.get('endDate')
+  }
+
+  constructor(private service: ViewProductService,private fb:FormBuilder) {
     this.service.getProducts().subscribe((response) => {
       this.products = response;
     });
   }
 
+  updateForm = this.fb.group({
+    productId: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(6)]],
+    productName: ['',[Validators.required,Validators.minLength(4),Validators.maxLength(30)]],
+    type: ['',[Validators.required]],
+    price: ['',[Validators.required,Validators.min(1)]],
+    description : ['',[Validators.required,Validators.minLength(10),Validators.maxLength(100)]],
+    startDate : ['',[Validators.required]],
+    endDate : ['',[Validators.required]],
+    fileSource: ['',],
+    fileName: '',
+  })
+
   ngOnInit(): void {}
+
+  public selectedfile =null;
+  onFileSelected(event){
+    
+    // if(event.target.files.length > 0) 
+    //  {
+    //    this.createForm.patchValue({
+    //       fileName: event.target.files[0].name,
+    //    })
+    //  }
+    
+    console.log(event);
+    this.selectedfile=event.target.files[0];
+    console.log(this.selectedfile.name)
+    console.log(this.selectedfile)
+
+  }
+
+  showModal: boolean;
+
+  setDate(string){
+    return string.substr(0, string.indexOf('T'))
+   
+  }
+
+  show(product){
+
+  
+
+
+    console.log(product)
+    this.showModal = true;
+    console.log(product.productId)
+    this.updateForm.patchValue({
+      productId:product.productId,
+      productName:product.productName,
+      type:product.productType,
+      price:product.productPrice,
+      description:product.productDescription,
+      startDate:this.setDate(product.productStartDate),
+      endDate:this.setDate(product.productEndDate),
+
+    });
+  }
+
+  update(){
+
+    const formData = new FormData();
+    formData.append('productId',this.updateForm.get('productId').value);
+    formData.append('productName',this.updateForm.get('productName').value)
+    formData.append('type',this.updateForm.get('type').value);
+    formData.append('price',this.updateForm.get('price').value);
+    formData.append('description',this.updateForm.get('description').value);
+    formData.append('startDate',this.updateForm.get('startDate').value);
+    formData.append('endDate',this.updateForm.get('endDate').value);
+    
+
+    console.log(formData)
+    // this.service.updateProducts(formData).subscribe((response) => {
+    //   this.products = response;
+    // });   
+  }
+  hide(){
+    this.showModal = false;
+  }
+
 }
