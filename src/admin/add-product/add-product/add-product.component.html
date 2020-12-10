@@ -77,7 +77,7 @@
             <label class="label">Start date</label>
             <div class="control">
               <input [class.is-invalid]="startDate.invalid 
-              && startDate.touched" class="input is-small form-control" formControlName="startDate" type="date" useValueAsDate/>
+              && startDate.touched" class="input is-small form-control" name="startDate" min formControlName="startDate" type="date" useValueAsDate/>
             </div>
             <div *ngIf="startDate.invalid && startDate.touched">
                 <small *ngIf="startDate.errors?.required" class="text-danger"><i>Start Date is required</i></small>
