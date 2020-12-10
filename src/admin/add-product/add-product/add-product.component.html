@@ -38,7 +38,8 @@
               <div class="select is-small">
                 <select [class.is-invalid]="type.invalid 
                 && type.touched" class=" form-control" formControlName="type">
-                  <option value="classic" selected>Classic</option>
+                  <option value="" disabled>Select Type</option>
+                  <option value="classic">Classic</option>
                   <option value="special">Special</option>
                 </select>
               </div>
@@ -76,7 +77,7 @@
             <label class="label">Start date</label>
             <div class="control">
               <input [class.is-invalid]="startDate.invalid 
-              && startDate.touched" class="input is-small form-control" formControlName="startDate" type="date">
+              && startDate.touched" class="input is-small form-control" formControlName="startDate" type="date" useValueAsDate/>
             </div>
             <div *ngIf="startDate.invalid && startDate.touched">
                 <small *ngIf="startDate.errors?.required" class="text-danger"><i>Start Date is required</i></small>
@@ -87,18 +88,20 @@
             <label class="label">End date</label>
             <div class="control">
               <input [class.is-invalid]="endDate.invalid 
-              && endDate.touched" class="input is-small form-control" formControlName="endDate" type="date">
+              && endDate.touched" class="input is-small form-control" formControlName="endDate" type="date" useValueAsDate/>
             </div>
             <div *ngIf="endDate.invalid && endDate.touched">
                 <small *ngIf="endDate.errors?.required" class="text-danger"><i>End Date is required</i></small>
+        
             </div>
+              <small *ngIf="createForm.errors" class="text-danger"><i>{{createForm.errors?.dates | json}}</i></small>
           </div>
     
           <div class="field">
             <label class="label">Product Image</label>
             <div class="file is-info has-name is-small">
               <label class="file-label">
-                <input  class="file-input form-control" accept="image/*" (change)="onFileSelected($event)" formControlName="fileSource"  type="file" name="image">
+                <input  class="file-input form-control" accept=".jpg,.png,.jpeg" (change)="onFileSelected($event)" formControlName="fileSource"  type="file" name="image" />
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
@@ -108,8 +111,9 @@
                   </span>
                 </span>
               </label>
+              <small class="text-danger" >*files allowed jpeg, png</small>
             </div>
-            <small class="text-danger">*files allowed jpeg, png</small>
+            <p id="show-file-name"></p>
             <!-- <div *ngIf="image.invalid && image.touched">
                 <small *ngIf="image.errors?.required" class="text-danger"><i>Image is required</i></small>
             </div> -->
