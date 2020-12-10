@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import {FormBuilder,Validators} from '@angular/forms';
+import {FormBuilder,Validators,FormGroup} from '@angular/forms';
 import { AddProductService } from '../add-product.service';
-
 
 @Component({
   selector: 'app-add-product',
@@ -50,14 +49,29 @@ export class AddProductComponent implements OnInit {
     description : ['',[Validators.required,Validators.minLength(10),Validators.maxLength(100)]],
     startDate : ['',[Validators.required]],
     endDate : ['',[Validators.required]],
-    fileSource: ['', Validators.required],
+    fileSource: ['',[Validators.required]],
     fileName: '',
+  },{
+    validator:this.dateLessThan('startDate','endDate')
   })
 
 
 
   ngOnInit(): void {
   }
+
+  dateLessThan(from: string, to: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      let f = group.controls[from];
+      let t = group.controls[to];
+      if (f.value > t.value) {
+        return {
+          dates: "End date should be greater than start date"
+        };
+      }
+      return {};
+    }
+}
 
   public selectedfile =null;
   
@@ -72,6 +86,7 @@ export class AddProductComponent implements OnInit {
     
     console.log(event);
     this.selectedfile=event.target.files[0];
+    document.getElementById('show-file-name').innerHTML=this.selectedfile.name;
     console.log(this.selectedfile.name)
     console.log(this.selectedfile)
 
