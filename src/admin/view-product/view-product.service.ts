@@ -10,7 +10,11 @@ export class ViewProductService {
   getProducts() {
     return this.HttpClient.get(this.url);
   }
-  updateProducts(data){
-    return this.HttpClient.put('http://localhost:3000/product',data)
+  updateProducts(data) {
+    return this.HttpClient.patch('http://localhost:3000/product', data);
+  }
+
+  deleteProduct(id) {
+    return this.HttpClient.post('http://localhost:3000/deleteproduct', id);
   }
 }
