@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {FormBuilder,Validators,FormGroup} from '@angular/forms';
 import { AddProductService } from '../add-product.service';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-add-product',
