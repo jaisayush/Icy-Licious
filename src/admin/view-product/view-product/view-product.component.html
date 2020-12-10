@@ -191,6 +191,8 @@
                 [class.is-invalid]="startDate.invalid && startDate.touched"
                 class="input is-small form-control"
                 formControlName="startDate"
+                name="start"
+                min
                 type="date"
               />
             </div>
@@ -216,6 +218,7 @@
                 ><i>End Date is required</i></small
               >
             </div>
+            <small *ngIf="updateForm.errors" class="text-danger"><i>{{updateForm.errors?.dates | json}}</i></small>
           </div>
 
           <div class="field">
@@ -238,6 +241,7 @@
                 </span>
               </label>
             </div>
+            <p id="show-file-name"></p>
             <small class="text-danger">*files allowed jpeg, png</small>
             <!-- <div *ngIf="image.invalid && image.touched">
                                 <small *ngIf="image.errors?.required" class="text-danger"><i>Image is required</i></small>
