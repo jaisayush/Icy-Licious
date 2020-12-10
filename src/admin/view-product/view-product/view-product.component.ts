@@ -1,6 +1,6 @@
 import { ViewProductService } from './../view-product.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-view-product',
@@ -65,20 +65,40 @@ export class ViewProductComponent implements OnInit {
     endDate: ['', [Validators.required]],
     fileSource: [''],
     fileName: '',
+  },{
+    validator:this.dateLessThan('startDate','endDate')
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("start")[0].setAttribute('min', today);
+  }
+
+  dateLessThan(from: string, to: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      let f = group.controls[from];
+      let t = group.controls[to];
+      if (f.value > t.value) {
+        return {
+          dates: "End date should be greater than start date"
+        };
+      }
+      return {};
+    }
+}
 
   public selectedfile = null;
   onFileSelected(event) {
     if (event.target.files.length > 0) {
       this.updateForm.patchValue({
         fileName: event.target.files[0].name,
+        
       });
     }
 
     console.log(event);
     this.selectedfile = event.target.files[0];
+    document.getElementById('show-file-name').innerHTML=this.selectedfile.name;
     console.log(this.selectedfile.name);
     console.log(this.selectedfile);
   }
