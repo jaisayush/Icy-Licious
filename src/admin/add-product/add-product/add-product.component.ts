@@ -50,7 +50,7 @@ export class AddProductComponent implements OnInit {
     description : ['',[Validators.required,Validators.minLength(10),Validators.maxLength(100)]],
     startDate : ['',[Validators.required]],
     endDate : ['',[Validators.required]],
-    fileSource: ['', Validators.required,RxwebValidators.extension({extensions:["jpeg","png","jpg"]})],
+    fileSource: ['',[Validators.required]],
     fileName: '',
   },{
     validator:this.dateLessThan('startDate','endDate')
@@ -67,7 +67,7 @@ export class AddProductComponent implements OnInit {
       let t = group.controls[to];
       if (f.value > t.value) {
         return {
-          dates: "Date from should be less than Date to"
+          dates: "End date should be greater than start date"
         };
       }
       return {};
@@ -87,6 +87,7 @@ export class AddProductComponent implements OnInit {
     
     console.log(event);
     this.selectedfile=event.target.files[0];
+    document.getElementById('show-file-name').innerHTML=this.selectedfile.name;
     console.log(this.selectedfile.name)
     console.log(this.selectedfile)
 
