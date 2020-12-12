@@ -5,12 +5,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductModule } from 'src/admin/add-product/add-product.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import { DashboardModule } from 'src/admin/dashboard/dashboard.module';
+import {ShowOrdersModule} from 'src/admin/show-orders/show-orders.module'
 // import { DashboardModule } from 'src/admin/dashboard/dashboard.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,7 +23,8 @@ import { DashboardModule } from 'src/admin/dashboard/dashboard.module';
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
-    DashboardModule
+    DashboardModule,
+    ShowOrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent],
