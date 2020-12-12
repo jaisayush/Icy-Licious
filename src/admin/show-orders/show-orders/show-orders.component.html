@@ -21,7 +21,7 @@
           <td>{{order.totalPrice}}</td>
           <td>{{order.status}}</td>
         <td>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" (click)="shoPlace()" id="statusb tn{{order._id}}"(onclick)="setOrderId(order._id)" >Ordered</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" (click)="shoPlace()" id="statusbtn{{order._id}}"(click)="setOrderId(order._id)" >Ordered</button>
         </td>
           <td><button type="button" class="btn btn-info"(click)='getOrderId(order._id)' data-toggle="modal" (click)="showView()" data-target="#detailModal">Detail</button></td>
         </tr>
