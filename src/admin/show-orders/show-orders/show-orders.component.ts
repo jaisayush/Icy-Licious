@@ -64,9 +64,10 @@ export class ShowOrdersComponent implements OnInit {
         (val) => {
             console.log("PATCH call successful value returned in body", val);
             console.log("statusbtn"+this.orderId)
-            let btn = document.getElementById("statusbtn"+this.orderId)as HTMLElement
+            let btn = document.getElementById("statusbtn"+this.orderId) as HTMLElement
             btn.innerHTML="Delivered";
             btn.style.backgroundColor = "green";
+            this.closeplaceOrder()
         },
         response => {
             console.log("PATCH call in error", response);
