@@ -21,9 +21,9 @@
           <td>{{order.totalPrice}}</td>
           <td>{{order.status}}</td>
         <td>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" id="statusbtn{{order._id}}" (onclick)="setOrderId(order._id)" >Ordered</button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" (click)="shoPlace()" id="statusb tn{{order._id}}"(onclick)="setOrderId(order._id)" >Ordered</button>
         </td>
-          <td><button type="button" class="btn btn-info"(click)='getOrderId(order._id)' data-toggle="modal" data-target="#detailModal">Detail</button></td>
+          <td><button type="button" class="btn btn-info"(click)='getOrderId(order._id)' data-toggle="modal" (click)="showView()" data-target="#detailModal">Detail</button></td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +48,7 @@
           <td>{{getDate(order.orderDate)}}</td>
           <td>{{order.totalPrice}}</td>
           <td><b>{{order.status}}</b></td>
-          <td><button type="button" class="btn btn-info"(click)='getOrderId(order._id)' data-toggle="modal" data-target="#detailModal">Detail</button></td>
+          <td><button type="button" class="btn btn-info"(click)='getOrderId(order._id)'  (click)="showView()" >Detail</button></td>
         </tr>
       </tbody>
     </table>
@@ -56,63 +56,59 @@
 </mat-tab-group>
   
   
-  
-<div id="detailModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-   <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Order Detail</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Product Id</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              
-            </tr>
-          </thead>
-          <tbody *ngFor="let item of order.itemPurchased">
-            <tr>
-              <td>{{item.productId}}</td>
-              <td>{{item.productName}}</td>
-              <td>{{item.productQty}}</td>
-              <td>{{item.productPrice}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
+<div [style.display]="showViewModal ? 'block' : 'none'" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <h2 class="modal-title">Order Detail</h2>
+    </header>
+    <section class="modal-card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of order.itemPurchased">
+          <tr>
+            <td>{{item.productId}}</td>
+            <td>{{item.productName}}</td>
+            <td>{{item.productQty}}</td>
+            <td>{{item.productPrice}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <footer class="modal-card-foot">
+      <button type="button" (click)="closeModal()" class="btn btn-warning" data-dismiss="modal">Close</button>
+    </footer>
   </div>
 </div>
 
 
-
-
-<div id="confirmModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-   <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Delivery Confirmation</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-       Order delivered?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-default" (click)="setStatus('delivered')" data-dismiss="modal">Cofirm</button>
-      </div>
-    </div>
-
+<div [style.display]="showPlaceOrder ? 'block' : 'none'" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Delivery Confirmation</p>
+      <button
+        class="delete"
+        (click)="closeplaceOrder()"
+        aria-label="close"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <h1>Order delivered?</h1>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" (click)="setStatus('delivered')">Confirm</button>
+      <button class="button" (click)="closeplaceOrder()">Cancel</button>
+    </footer>
   </div>
 </div>
   

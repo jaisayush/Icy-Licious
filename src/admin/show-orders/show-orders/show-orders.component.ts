@@ -74,5 +74,24 @@ export class ShowOrdersComponent implements OnInit {
   }
 
 
+  showViewModal: boolean;
+
+  showView() {
+    this.showViewModal = true;
+  }
+
+  closeModal() {
+    this.showViewModal = false;
+  }
+
+
+  showPlaceOrder:boolean;
+
+  shoPlace(){
+    this.showPlaceOrder = true;
+  }
+  closeplaceOrder(){
+    this.showPlaceOrder = false;
+  }
 
 }
